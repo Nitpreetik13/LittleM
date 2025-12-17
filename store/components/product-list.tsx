@@ -9,8 +9,15 @@ interface ProductListProps {
 
 const ProductList: React.FC<ProductListProps> = ({ title, items }) => {
     return ( 
-        <div className="space-y-4">
-            <h3 className="text-3xl font-bold">{title}</h3>
+        <section className="space-y-3">
+            <div className="space-y-1">
+                <h2 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+                    {title}
+                </h2>
+                <p className="text-sm text-slate-600">
+                    Hand-picked, screen-free kits loved by kids and trusted by parents.
+                </p>
+            </div>
             {items?.length === 0 && <NoResults />}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {items.map(item => (
@@ -19,7 +26,7 @@ const ProductList: React.FC<ProductListProps> = ({ title, items }) => {
                     </div>
                 ))}
             </div>
-        </div>
+        </section>
      );
 }
  
