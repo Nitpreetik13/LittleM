@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 import prismadb from '@/lib/prismadb'
 import { ColorClient } from './components/client'
 import { ColorColumn } from './components/columns'
-
+export const revalidate = 60
 const ColorsPage = async ({ 
     params
 }: { 

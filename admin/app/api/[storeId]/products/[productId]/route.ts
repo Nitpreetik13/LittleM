@@ -21,7 +21,10 @@ export async function GET (
                 images: true,
                 category: true,
                 size: true,
-                color: true
+                color: true,
+                duration: true,
+                age: true,
+                destination: true
             }
         })
 
@@ -47,6 +50,9 @@ export async function PATCH (
             categoryId,
             colorId,
             sizeId,
+            durationId,
+            ageId,
+            destinationId,
             images,
             isFeatured,
             isArchived
@@ -67,6 +73,12 @@ export async function PATCH (
         if (!colorId) new NextResponse("Color id is required", { status: 400});
 
         if (!sizeId) new NextResponse("Size id is required", { status: 400});
+
+        if (!durationId) new NextResponse("Duration id is required", { status: 400});
+
+        if (!ageId) new NextResponse("Age id is required", { status: 400});
+
+        if (!destinationId) new NextResponse("Destination id is required", { status: 400});
 
         if (!isFeatured) new NextResponse("Featured is required", { status: 400});
 
@@ -106,6 +118,9 @@ export async function PATCH (
                 categoryId,
                 sizeId,
                 colorId,
+                durationId,
+                ageId,
+                destinationId,
                 storeId: storeId
             }
         })

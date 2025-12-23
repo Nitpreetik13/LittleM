@@ -17,6 +17,9 @@ model Store {
   products        Product[]  @relation("StoreToProduct")
   sizes           Size[]     @relation("StoreToSize")
   colors          Color[]     @relation("StoreToColor")
+  durations       Duration[] @relation("StoreToDuration")
+  ages            Age[]      @relation("StoreToAge")
+  destinations    Destination[] @relation("StoreToDestination")
   orders          Order[]     @relation("StoreToOrder")
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
@@ -62,6 +65,12 @@ model Product {
   isArchived  Boolean   @default(false)
   sizeId      String    // Foreign Key to Size
   size        Size      @relation(fields: [sizeId], references: [id])
+  durationId  String?   // Foreign Key to Duration
+  duration    Duration? @relation(fields: [durationId], references: [id])
+  ageId       String?   // Foreign Key to Age
+  age         Age?      @relation(fields: [ageId], references: [id])
+  destinationId String? // Foreign Key to Destination
+  destination Destination? @relation(fields: [destinationId], references: [id])
   colorId     String    // Foreign Key to Color
   color       Color     @relation(fields: [colorId], references: [id])
   images      Image[]   // Relation to Image model
@@ -72,6 +81,9 @@ model Product {
   @@index([storeId])
   @@index([categoryId])
   @@index([sizeId])
+  @@index([durationId])
+  @@index([ageId])
+  @@index([destinationId])
   @@index([colorId])
 }
 
@@ -105,6 +117,45 @@ model Size {
   id          String    @id @default(uuid())
   storeId     String    // Foreign Key to Store
   store       Store     @relation("StoreToSize", fields: [storeId], references: [id])
+  name        String
+  value       String
+  products    Product[] // Relation to Product model
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([storeId])
+}
+
+model Duration {
+  id          String    @id @default(uuid())
+  storeId     String    // Foreign Key to Store
+  store       Store     @relation("StoreToDuration", fields: [storeId], references: [id])
+  name        String
+  value       String
+  products    Product[] // Relation to Product model
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([storeId])
+}
+
+model Age {
+  id          String    @id @default(uuid())
+  storeId     String    // Foreign Key to Store
+  store       Store     @relation("StoreToAge", fields: [storeId], references: [id])
+  name        String
+  value       String
+  products    Product[] // Relation to Product model
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([storeId])
+}
+
+model Destination {
+  id          String    @id @default(uuid())
+  storeId     String    // Foreign Key to Store
+  store       Store     @relation("StoreToDestination", fields: [storeId], references: [id])
   name        String
   value       String
   products    Product[] // Relation to Product model

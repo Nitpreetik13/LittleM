@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 import prismadb from '@/lib/prismadb'
 import { SizeClient } from './components/client'
 import { SizeColumn } from './components/columns'
-
+export const revalidate = 60
 const SizesPage = async ({ 
     params
 }: { 
