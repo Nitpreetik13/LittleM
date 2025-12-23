@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import * as z from 'zod'
-import { Category, Color, Image, Product, Size } from "@prisma/client";
+import { Age, Category, Color, Destination, Duration, Image, Product, Size } from "@prisma/client";
 import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -26,6 +26,9 @@ interface ProductFromProps {
     categories: Category[]
     colors: Color[]
     sizes: Size[]
+    durations: Duration[]
+    ages: Age[]
+    destinations: Destination[]
 }
 
 const formSchema = z.object({
@@ -35,6 +38,9 @@ const formSchema = z.object({
     categoryId: z.string().min(1),
     colorId: z.string().min(1),
     sizeId: z.string().min(1),
+    durationId: z.string().min(1),
+    ageId: z.string().min(1),
+    destinationId: z.string().min(1),
     isFeatured: z.boolean().default(false).optional(),
     isArchived: z.boolean().default(false).optional()
     
@@ -46,7 +52,10 @@ export const ProductForm: React.FC<ProductFromProps> = ({
     initialData,
     categories,
     colors,
-    sizes
+    sizes,
+    durations,
+    ages,
+    destinations
 }) => {
 
     const params = useParams();
@@ -72,6 +81,9 @@ export const ProductForm: React.FC<ProductFromProps> = ({
             categoryId: '',
             colorId: '',
             sizeId: '',
+            durationId: '',
+            ageId: '',
+            destinationId: '',
             isFeatured: false,
             isArchived: false,
         }
@@ -211,7 +223,7 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                             name="sizeId"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Size</FormLabel>
+                                    <FormLabel>Travel Mode</FormLabel>
                                     <Select
                                         disabled={loading}
                                         onValueChange={field.onChange}
@@ -239,6 +251,102 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                             )}
                         />
                         <FormField
+                            control={form.control} 
+                            name="durationId"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel>Duration</FormLabel>
+                                    <Select
+                                        disabled={loading}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                        defaultValue={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue
+                                                    defaultValue={field.value}
+                                                    placeholder='Select a duration'
+                                                />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {durations.map(duration => (
+                                                <SelectItem key={duration.id} value={duration.id}>
+                                                    {duration.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control} 
+                            name="ageId"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel>Age</FormLabel>
+                                    <Select
+                                        disabled={loading}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                        defaultValue={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue
+                                                    defaultValue={field.value}
+                                                    placeholder='Select an age'
+                                                />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {ages.map(age => (
+                                                <SelectItem key={age.id} value={age.id}>
+                                                    {age.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control} 
+                            name="destinationId"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel>Destination</FormLabel>
+                                    <Select
+                                        disabled={loading}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                        defaultValue={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue
+                                                    defaultValue={field.value}
+                                                    placeholder='Select a destination'
+                                                />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {destinations.map(destination => (
+                                                <SelectItem key={destination.id} value={destination.id}>
+                                                    {destination.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        {/* <FormField
                             control={form.control} 
                             name="colorId"
                             render={({field}) => (
@@ -269,7 +377,7 @@ export const ProductForm: React.FC<ProductFromProps> = ({
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />
+                        /> */}
                         <FormField
                             control={form.control} 
                             name="isFeatured"

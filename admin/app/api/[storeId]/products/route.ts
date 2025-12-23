@@ -16,6 +16,9 @@ export async function POST(
             categoryId,
             colorId,
             sizeId,
+            durationId,
+            ageId,
+            destinationId,
             images,
             isFeatured,
             isArchived
@@ -38,6 +41,12 @@ export async function POST(
         if (!colorId) new NextResponse("Color id is required", { status: 400});
 
         if (!sizeId) new NextResponse("Size id is required", { status: 400});
+
+        if (!durationId) new NextResponse("Duration id is required", { status: 400});
+
+        if (!ageId) new NextResponse("Age id is required", { status: 400});
+
+        if (!destinationId) new NextResponse("Destination id is required", { status: 400});
 
         if (!isFeatured) new NextResponse("Featured is required", { status: 400});
 
@@ -78,7 +87,10 @@ export async function POST(
                 categoryId,
                 sizeId,
                 colorId,
-                storeId: storeId
+                storeId: storeId,
+                durationId,
+                ageId,
+                destinationId
             }
         })
 
@@ -99,6 +111,9 @@ export async function GET(
         const { searchParams } = new URL(req.url);
         const categoryId = searchParams.get('categoryId') || undefined;
         const sizeId = searchParams.get('sizeId') || undefined;
+        const durationId = searchParams.get('durationId') || undefined;
+        const ageId = searchParams.get('ageId') || undefined;
+        const destinationId = searchParams.get('destinationId') || undefined;
         const colorId = searchParams.get('colorId') || undefined;
         const isFeatured = searchParams.get('isFeatured');
 
@@ -112,6 +127,9 @@ export async function GET(
                 categoryId,
                 colorId,
                 sizeId,
+                durationId,
+                ageId,
+                destinationId,
                 isFeatured: isFeatured ? true : undefined,
                 isArchived: false
             },
@@ -119,7 +137,10 @@ export async function GET(
                 images: true,
                 category: true,
                 color: true,
-                size: true
+                size: true,
+                duration: true,
+                age: true,
+                destination: true
             },
             orderBy: {
                 createdAt: 'desc'

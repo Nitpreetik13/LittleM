@@ -3,7 +3,7 @@ import prismadb from '@/lib/prismadb'
 import { ProductClient } from './components/client'
 import { ProductColumn } from './components/columns'
 import { formatter } from '@/lib/utils'
-
+export const revalidate = 60
 const ProductsPage = async ({ 
     params
 }: { 
@@ -18,7 +18,10 @@ const ProductsPage = async ({
         include: {
             category: true,
             size: true,
-            color: true
+            color: false,
+            duration: true,
+            age: true,
+            destination: true,
         },
         orderBy: {
             createdAt: 'desc'
@@ -33,7 +36,9 @@ const ProductsPage = async ({
         price: formatter.format(Number(item.price)),
         category: item.category.name,
         size: item.size.name,
-        color: item.color.value,
+        duration: item.duration?.name ?? null,
+        age: item.age?.name ?? null,
+        destination: item.destination?.name ?? null,
         createdAt: format(item.createdAt, "MMMM do, yyyy"),
     }));
 

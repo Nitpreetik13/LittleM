@@ -24,6 +24,24 @@ const ProductPage = async ({ params }: { params: Promise<{ productId: string, st
         },
     })
 
+    const durations = await prismadb.duration.findMany({
+        where: {
+            storeId,
+        },
+    })
+
+    const ages = await prismadb.age.findMany({
+        where: {
+            storeId,
+        },
+    })
+
+    const destinations = await prismadb.destination.findMany({
+        where: {
+            storeId,
+        },
+    })
+
     const colors = await prismadb.color.findMany({
         where: {
             storeId: storeId
@@ -37,6 +55,9 @@ const ProductPage = async ({ params }: { params: Promise<{ productId: string, st
                     initialData={product}
                     colors={colors}
                     sizes={sizes}
+                    durations={durations}
+                    ages={ages}
+                    destinations={destinations}
                     categories={categories}
                 />
             </div>

@@ -20,14 +20,22 @@ export function MainNav({ className, ...props } : React.HTMLAttributes<HTMLEleme
         href: `/${params.storeId}/categories`,
         label: 'Categories',
         active: pathname === `/${params.storeId}/categories`
+    },{
+        href: `/${params.storeId}/ages`,
+        label: 'Ages',
+        active: pathname === `/${params.storeId}/ages`
     }, {
-        href: `/${params.storeId}/sizes`,
-        label: 'Sizes',
-        active: pathname === `/${params.storeId}/sizes`
+        href: `/${params.storeId}/travelModes`,
+        label: 'Travel Modes',
+        active: pathname === `/${params.storeId}/travelModes`
     }, {
-        href: `/${params.storeId}/colors`,
-        label: 'Colors',
-        active: pathname === `/${params.storeId}/colors`
+        href: `/${params.storeId}/durations`,
+        label: 'Durations',
+        active: pathname === `/${params.storeId}/durations`
+    }, {
+        href: `/${params.storeId}/destinations`,
+        label: 'Destinations',
+        active: pathname === `/${params.storeId}/destinations`
     }, {
         href: `/${params.storeId}/products`,
         label: 'Products',
